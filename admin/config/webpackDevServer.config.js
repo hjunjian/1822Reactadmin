@@ -82,6 +82,13 @@ module.exports = function(proxy, allowedHost) {
     },
     public: allowedHost,
     proxy,
+    // :{
+    //   '/hehe':{
+    //     target:'',
+    //     changeOrigin:true,
+    //     pathRewrite:{'^/hehe':''}
+    //   }
+    // },
     before(app, server) {
       if (fs.existsSync(paths.proxySetup)) {
         // This registers user provided middleware for proxy reasons

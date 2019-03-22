@@ -1,74 +1,80 @@
-import React, { Component } from 'react';
-import {
-  Form, Icon, Input, Button, Checkbox,
-} from 'antd';
-
+import React,{Component} from 'react'
 import './login.less'
-
-class Login extends Component {
-  login(e){
-    let data=this.props.form.getFieldValue('username')
-    console.log(data)
-    // e.preventDefault();
-    // this.props.form.validateFields((err, values) => {
-    //   //所有的表单元素  满足验证 err 假  
-    //   console.log(err,'err')
-    //   console.log(values,'value')
-    //   if (!err) {
+import {
+   Form, Icon, Input, Button, Checkbox,Card,message
+ } from 'antd';
+ 
+ class NormalLoginForm extends React.Component {
+   handleSubmit = (e) => {
        
-    //     this.props.history.push('/admin')
-    //   }
-    // });
-  }
-  render() {
-    console.log(this)
-    const { getFieldDecorator } = this.props.form //表单的过滤
-    return (
-      <div className="login">
-        <Form>
-           <Form.Item>
-              {
-               getFieldDecorator(
-                  //配置信息
-                  'username',
-                  {
-                   rules:[{required:true,message:'用户名不能为空'},
-                           {min:3,message:'不能少于5位'},
-                           {max:10,message:'不能超过10位'},
-                           {pattern:/^[a-zA-Z]/g,message:'首字母英文开头'}
-                    ] 
-                  }
-               )(
-                  // 要处理的组件
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-               ) 
-              }
-           </Form.Item>
-           <Form.Item>
-              {
-               getFieldDecorator(
-                  //配置信息
-                  'password',
-                  {
-                   rules:[{required:true,message:'用户名不能为空'},
-                           {min:3,message:'不能少于5位'},
-                           {max:10,message:'不能超过10位'},
-                           {pattern:/^[a-zA-Z]/g,message:'首字母英文开头'}
-                    ] 
-                  }
-               )(
-                  // 要处理的组件
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-               ) 
-              }
-           </Form.Item>
-           <Form.Item>
-              <Button onClick={this.login.bind(this)}>登录</Button>
-           </Form.Item>
-        </Form>
-      </div>
-    );
-  }
-}
-const WrappedNormalLoginForm = Form.create()(Login);
-export default WrappedNormalLoginForm;
+     e.preventDefault();
+     this.props.form.validateFields((err, values) => {
+       if (!err) {
+            this.$axios.get('/login',{query:{name:'wangyi',ps:456}})
+            .then((data)=>{
+               console.log(data)
+               if(data.err==0){
+                  message.success('登录成功，1秒自动跳转',1,()=>{
+                     this.props.history.push('/admin')
+                  })
+               }else{
+                  message.error(data.msg,1)
+               }
+            })
+            .catch((err)=>{
+
+            })
+         // setTimeout(()=>{
+         //    // message.success('登录成功，3秒自动跳转',3,()=>{
+         //    //    this.props.history.push('/admin')
+         //    // })
+         //    message.error('登录失败请重试',1)
+           
+         // },1000)
+       }
+     });
+   }
+ 
+   render() {
+     const { getFieldDecorator } = this.props.form;
+     return (
+        <Card 
+         title='LOGIN IN '
+        className='login'>
+       <Form onSubmit={this.handleSubmit} className="login-form">
+         <Form.Item>
+           {getFieldDecorator('userName', {
+             rules: [{ required: true, message: 'Please input your username!' }],
+           })(
+             <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+           )}
+         </Form.Item>
+         <Form.Item>
+           {getFieldDecorator('password', {
+             rules: [{ required: true, message: 'Please input your Password!' }],
+           })(
+             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+           )}
+         </Form.Item>
+         <Form.Item>
+           {getFieldDecorator('remember', {
+             valuePropName: 'checked',
+             initialValue: true,
+           })(
+             <Checkbox>Remember me</Checkbox>
+           )}
+           <a className="login-form-forgot" href="">Forgot password</a>
+           <Button type="primary" htmlType="submit" className="login-form-button">
+             Log in
+           </Button>
+           Or <a href="">register now!</a>
+         </Form.Item>
+       </Form>
+       </Card>
+     );
+   }
+ }
+ 
+export default Form.create({ name: 'normal_login' })(NormalLoginForm);
+ 
+ 

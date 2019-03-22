@@ -65,4 +65,12 @@ api 无状态
 
 #### mock数据 
 1.自己本地搭建mock 服务器
-2.线上搭建好的  easymock  https://www.easy-mock.com/login
+2.线上搭建好的  easymock  https://www.easy-mock.com/login 根据mock js 搭建
+3.http://mockjs.com
+
+#### 骨架屏
+
+#### 数据请求
+axios 
+jsonp 
+跨域  config/ webpack.devserver.config.js  proxy

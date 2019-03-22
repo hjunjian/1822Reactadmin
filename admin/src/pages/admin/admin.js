@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './admin.less'
 import NavLeft from '../../components/NavLeft/navleft'
 import {Row ,Col}  from 'antd'
-import Contain from '../../components/Contain/Contain'
+// import Contain from '../../components/Contain/Contain
 class Admin extends Component {
   render() {
     return (
@@ -12,11 +12,11 @@ class Admin extends Component {
               <NavLeft></NavLeft>
            </Col>
            <Col span={20} className='right'>
-              <div>头部</div>
-              <div>
+              <div className='header'>头部</div>
+              <div className='center'>
               {this.props.children}
               </div>
-              <div>
+              <div className='footer'>
                 footer
               </div>
            </Col>

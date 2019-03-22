@@ -36,7 +36,7 @@ export default withRouter (class NavLeft extends Component {
   render() {
     return (
       <div className="NavLeft">
-        <Menu  mode="vertical">
+        <Menu  mode="vertical" theme='dark'>
           {this.renderMenu(menuData.menuData)}
         {/* <Menu.Item  >
         
