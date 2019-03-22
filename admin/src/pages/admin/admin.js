@@ -6,30 +6,21 @@ import Contain from '../../components/Contain/Contain'
 class Admin extends Component {
   render() {
     return (
-      <div className="admin">
-       <Row>
-           <Col span={4}>
+
+       <Row className='admin'>
+           <Col span={4} className='left'>
               <NavLeft></NavLeft>
            </Col>
-           <Col span={20}>
-              <Row>
-                  <Col span={24} >
-                    top
-                  </Col>
-              </Row>
-              <Row>
-                  <Col span={24} >
-                  <Contain></Contain>
-                  </Col>
-              </Row>
-              <Row>
-                  <Col span={24} >
-                    bottom
-                  </Col>
-              </Row>
+           <Col span={20} className='right'>
+              <div>头部</div>
+              <div>
+              {this.props.children}
+              </div>
+              <div>
+                footer
+              </div>
            </Col>
        </Row>
-      </div>
     );
   }
 }
