@@ -1,6 +1,7 @@
 import React, { Component ,Fragment} from 'react';
 import {Modal,Card,Table,Button,Popconfirm,Pagination,Spin,message} from 'antd'
 import AddGoods from './addGoods'
+import UpdataGoods from './updateGoods'
 // import TableData from  './data'
 import './goods.less'
 // const columns=
@@ -10,7 +11,9 @@ class Goods extends Component {
     this.state={
       dataSource:[],
       spinning:true,
-      modalShow:false
+      modalShow:false,
+      modalShowUpdate:false,
+      selInfo:{}
     }
     // ctime: "2019-01-04T01:36:57.570Z",
     // imgPath: "/static/img/product-dryfruit@1.png",
@@ -102,13 +105,17 @@ class Goods extends Component {
                     >
                         <Button size='small' type='danger' >删除</Button>
                     </Popconfirm>
-                    <Button size='small'>修改</Button>
+                    <Button size='small' onClick={this.update.bind(this,data)}>修改</Button>
                 </div>
             )
         }
       }
       
     ]//表头
+  }
+  update(data){
+    //点击修改按钮  显示修改框  传递要修改条的数据
+    this.setState({modalShowUpdate:true,selInfo:data})
   }
   del(data){
     console.log(data)
@@ -161,19 +168,22 @@ class Goods extends Component {
     //添加商品 显示模态框
     this.setState({modalShow:true})
   }
-  hideModal(type){
+  hideModal(type,data){
     //隐藏模态框
     if(type=='cacel'){
       this.setState({modalShow:false})
     }else{
-      // let fun=this.refs.addGoods
-      // this.refs.addGoods.handleSubmit()
       console.log(this)
+      let dataSource=this.state.dataSource
+      
+      dataSource.push(data)
+      this.setState({dataSource,modalShow:false})
+  
     }
    
   }
   render() {
-    let {dataSource,spinning,modalShow} = this.state
+    let {dataSource,spinning,modalShow,selInfo,modalShowUpdate} = this.state
     return (
      <Card>
        <Button onClick={this.addProduct.bind(this)}>添加商品</Button>
@@ -188,11 +198,17 @@ class Goods extends Component {
        <Pagination simple  defaultCurrent={2} total={50} onChange={this.changePage.bind(this)}></Pagination>
         </Spin>
         <Modal visible={modalShow} title='增加商品' 
-                 footer={null}
+               footer={null}
                onCancel={this.hideModal.bind(this,'cacel')}  
                onOk={this.hideModal.bind(this,'submit')}>
-               <AddGoods ref='addGoods'></AddGoods>
+               <AddGoods hideModal={this.hideModal.bind(this)}></AddGoods>
                </Modal> 
+        <Modal visible={modalShowUpdate} title='修改商品' 
+            footer={null}
+             onCancel={this.hideModal.bind(this,'cacel')}  
+             onOk={this.hideModal.bind(this,'submit')}>
+            <UpdataGoods info={selInfo}></UpdataGoods>
+        </Modal> 
      </Card>
     );
   }

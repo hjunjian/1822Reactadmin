@@ -30,37 +30,37 @@ export default{
 
     },
     {
-        name:'图标展示',
-        path:'echart',
+        name:'图表展示',
+        path:'echars',
         children:[
             {
                 name:'饼状图',
-                path:'/echart/bin',
+                path:'/echars/bin',
                 children:[
                     {
                         name:'饼1',
-                        path:'/echart/bin/1'
+                        path:'/admin/echars/pie/pie1'
                 
                     },
                     {
                         name:'饼2',
-                        path:'/echart/bin/2'
+                        path:'/echars/bin/2'
                 
                     }
                 ]
             },
             {
                 name:'折线图',
-                path:'/echart/line',
+                path:'/admin/echars/line',
                 children:[
                     {
                         name:'折线1',
-                        path:'/echart/line/1'
+                        path:'/admin/echars/line/line1'
                 
                     },
                     {
                         name:'折线2',
-                        path:'/echart/line/2'
+                        path:'/admin/echars/line/line2'
                 
                     }
                 ]

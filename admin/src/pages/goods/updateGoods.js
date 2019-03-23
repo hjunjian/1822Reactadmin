@@ -18,7 +18,7 @@ import {
    }
  
    render() {
-     console.log(this)
+     console.log(this,'数据修改界面')
      const { getFieldDecorator } = this.props.form;
      return (
     
