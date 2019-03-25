@@ -53,6 +53,9 @@ class Goods extends Component {
       dataIndex:'price',
       key:'price',
       width:80,
+      sorter:(a,b)=>{
+        return a.price-b.price
+      },
       render(text){
          return <span>${text}</span>
       }
@@ -189,6 +192,7 @@ class Goods extends Component {
        <Button onClick={this.addProduct.bind(this)}>添加商品</Button>
        <Spin spinning={spinning}>
        <Table 
+            rowKey='_id'
             dataSource={dataSource} 
             columns={this.columns} 
             scroll={{y:240,x:1000}}
