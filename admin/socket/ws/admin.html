@@ -8,7 +8,7 @@
 </head>
 <body>
 <button onclick="sendmsg()">发送中奖消息</button>
-
+<button onclick="sendmsg()">推送表格数据</button>
 <script>
 const ws = new WebSocket('ws://localhost:8080/')
 ws.onopen=()=>{
@@ -17,7 +17,7 @@ ws.onopen=()=>{
 ws.onmessage=(msg)=>{
     //服务器端发送消息接受
     console.log(msg)
-    alert('推送'+msg.data)
+    // alert('推送'+msg.data)
 }
 ws.onclose=()=>{
     //服务器端主动断块连接触发
@@ -28,7 +28,7 @@ function closeWs(){
 }
 
 function sendmsg(){
-    ws.send(JSON.stringify({type:'reword',msg:'中奖'}))
+    ws.send(JSON.stringify({type:'echart',msg:'中奖'}))
     //向服务器端发送消息
 }
 </script> 

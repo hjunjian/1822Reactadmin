@@ -23,27 +23,12 @@ class component extends Component {
     }
   }
   componentDidMount(){
-    this.ws=new WebSocket('ws://localhost:8080')
-    this.ws.onopen=()=>{
-        console.log('服务器连接')
-    }
-    this.ws.onmessage=(msg)=>{
-        console.log('接受数据')
-        console.log(msg)
-        let tmp=JSON.parse(msg.data)
-        if(tmp.err==0){
-            let tmpData=JSON.stringify(this.state.data)
-            let newData=JSON.parse(tmpData)
-            newData.series[0]['data']=tmp.data
-           this.setState({data:newData})
-        }
-        
-        
-    }   
-  }
-  componentWillUnmount(){
-      this.ws.close()
-      //组件销毁断掉连接
+    // setInterval(()=>{
+    //     this.$axios.get('/piedata')
+    //     .then((res)=>{
+    //         this.setState({data:res.data})
+    //     })
+    // },1000)
   }
   change(){
      let data=[
@@ -53,7 +38,13 @@ class component extends Component {
         {value:15, name:'视频广告'},
         {value:1548, name:'搜索引擎'}
     ]
-
+    //  let echart=JSON.stringify(this.state.data)
+    //  let newData=JSON.parse(echart)
+    //  newData.series[0]['data']=data
+    // react修改数据 经常遇到引用类型的问题  
+    //1.不要只修改引用数据整体数据一起修改
+    //2.不修改原数据 将原数据 做拷贝赋予新数据 a。深拷贝 b、json 转化
+    //3.redux reducer不能修改原数据
     let newData=this.state.data
      newData.series[0]['data']=data
      this.setState({data:newData})

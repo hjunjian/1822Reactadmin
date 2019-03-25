@@ -14,6 +14,23 @@ ws.on('connection',(client)=>{
         if(msgdata.type=='reword'){
             //要发送中奖消息
             sendAll()
+        }else if(msgdata.type=='echart'){
+            //推送图表信息
+           
+            setInterval(()=>{
+                let  obj={
+                    err:'0',
+                    msg:'图标数据',
+                    data:[
+                        {value:parseInt(Math.random()*1000), name:'直接访问'},
+                        {value:parseInt(Math.random()*1000), name:'邮件营销'},
+                        {value:parseInt(Math.random()*1000), name:'联盟广告'},
+                        {value:parseInt(Math.random()*1000), name:'视频广告'},
+                        {value:parseInt(Math.random()*1000), name:'搜索引擎'}
+                    ]
+                }
+                sendAll(obj)
+            },1000)
         }
     })
     setTimeout(()=>{
@@ -32,10 +49,10 @@ ws.on('connection',(client)=>{
     })
 })
 
-function sendAll(){
+function sendAll(obj){
     for (let index = 0; index < clients.length; index++) {
         const element = clients[index];
-        element.send('恭喜中奖')
+        element.send(JSON.stringify(obj))
         
     } 
 }
